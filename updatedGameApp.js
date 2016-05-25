@@ -83,6 +83,8 @@ if(numOfPlayers === "2"){
 }
 //------------------------------------------------------------------------------
 //ajax function so can be called later
+var playersAnswer;
+var rightOrWrong;
 function ajax(method, url, handler){
   var req = new XMLHttpRequest();
     req.onreadystatechange = onStateChange;
@@ -113,28 +115,59 @@ function putQOnScreen(err, data){
     var addQToThis = document.querySelector('.questionBox');
     //console.log(addQToThis);
     addQToThis.innerHTML = question;
-    theOtherOnes();
+
+    whosTurn();
+
+    // var userAnswer = document.querySelector('.userAnswer');
+    // console.log("USER ANSWER: ", userAnswer);
+    // userAnswer = userAnswer.toLowerCase();
+    // answer = answer.toLowerCase();
+    // function compareAnswers(ans1, ans2){
+    //   console.log('ANSWER1: ', ans1);
+    //   console.log('ANSWER2: ', ans2);
+    //   answer = answer.toLowerCase();
+    //   playersAnswer = playersAnswer.toLowerCase();
+    //   if(answer == userAnswer){
+    //     console.log(answer);
+    //     console.log(userAnswer);
+    //     return true;
+    //   }else{
+    //     return false;
+    //   }
+    //
+    // }
+    // var clearAnswer = document.querySelector('.userAnswer');
+    // console.log(clearAnswer);
+    // clearAnswer.value = "";
+
+
         }
       }
 //------------------------------------------------------------------------------
-console.log(answer);
 
 
 //-------------turn changer function
-var counter = 1;
+var counter = 0;
 var itsYourTurn;
 function whosTurn (){
   counter++;
 
-  if(counter % 2 === 1){
+
+  //player 1's turn
+  turnNow = document.querySelector('.turn');
+  turnNow.innerHTML = "It is " + player1 +"'s Turn";
+  itsYourTurn = 1;
+
+
+  if(counter % 2 === 0){
+    //player 2's turn
+    turnNow.innerHTML = "It is " + player2 +"'s Turn";
+    itsYourTurn = 2;
+  }else{
     //player 1's turn
     turnNow = document.querySelector('.turn');
     turnNow.innerHTML = "It is " + player1 +"'s Turn";
     itsYourTurn = 1;
-  }else{
-    //player 2's turn
-    turnNow.innerHTML = "It is " + player2 +"'s Turn";
-    itsYourTurn = 2;
   }
   if(counter >= (numOfRounds * numOfPlayers * 10)){
     //Do this because the game has reached it's total number of questions
@@ -142,41 +175,66 @@ function whosTurn (){
 }
 
 
-//--------------------answer checker function
-// var userAnswer = document.querySelector('.userAnswer').value;
-// userAnswer = ans1.toLowerCase();
-// answer = ans2.toLowerCase();
-//and var answer equals the officla answer
-function compareAnswers(ans1, ans2){
-  if(ans1 == ans2){
+// --------------------answer checker function
+// var userAnswer = document.querySelector('.userAnswer');
+// console.log("USER ANSWER: ", userAnswer);
+// userAnswer = userAnswer.toLowerCase();
+// answer = answer.toLowerCase();
+function compareAnswers(user, correct){
+  console.log('USER: ', user);
+  console.log('CORRECT: ', correct);
+  correct = correct.toLowerCase();
+  user = user.toLowerCase();
+  if(user == correct){
+    console.log("RIGHT!");
     return true;
   }else{
+    console.log("Wrong :(");
     return false;
   }
 
 }
 
+//  var userAnswer = document.querySelector('.userAnswer').value;
+//  userAnswer = userAnswer.toLowerCase();
+//  console.log(userAnswer);
+//  answer = answer.toLowerCase();
+//  console.log(answer);
+// // and var answer equals the officla answer
+// function compareAnswers(ans1, ans2){
+//   if(ans1 == ans2){
+//     console.log(ans1);
+//     console.log(ans2);
+//     return true;
+//   }else{
+//     return false;
+//   }
+//
+// }
+
 //-----------ball colorer function
-var p1Counter=1;
-var p2Counter=1;
+var p1Counter=0;
+var p2Counter=0;
 function colorBall (whosTurn, isAnswerCorrect){
 
   if(whosTurn == 1){
     p1Counter++;
-    if(isAnswerCorrect == true){
+    if(isAnswerCorrect === true){
       var ballForThisQ = document.querySelector('.p1Ball'+p1Counter);
       console.log(ballForThisQ);
       ballForThisQ.style.backgroundColor = "green";
     }else{
+      var ballForThisQ = document.querySelector('.p1Ball'+p1Counter);
       ballForThisQ.style.backgroundColor = "red";
     }
   }else{
     p2Counter++;
-    if(isAnswerCorrect == true){
+    if(isAnswerCorrect === true){
       var ballForThisQ = document.querySelector('.p2Ball'+p2Counter);
       console.log(ballForThisQ);
       ballForThisQ.style.backgroundColor = "green";
     }else{
+      var ballForThisQ = document.querySelector('.p2Ball'+p2Counter);
       ballForThisQ.style.backgroundColor = "red";
     }
   }
@@ -184,16 +242,37 @@ function colorBall (whosTurn, isAnswerCorrect){
 
 //----------------------------------------------
 var checkAnsBttn = document.querySelector('.actualSubmitBtn');
-//console.log(checkAnsBttn);
-checkAnsBttn.addEventListener('click', callingAllFunctions);
+console.log("ANSWER BUTTON",checkAnsBttn);
+checkAnsBttn.addEventListener('click', function(event){
+    event.preventDefault();
+    // ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
+    // // var rightOrWrong =compareAnswers();
+
+    var userAnswer = document.querySelector('.userAnswer');
+    console.log("USER ANSWER HERE",userAnswer.value);
+    console.log("CORRENT ANSWER: ", answer);
+
+    var rightOrWrong = compareAnswers(userAnswer.value, answer);
+    console.log("DID THE PLAYER GET THE ANSWER RIGHT? ", rightOrWrong);
+
+
+    colorBall(itsYourTurn,rightOrWrong);
+
+    var clearAnswer = document.querySelector('.userAnswer');
+    //console.log(clearAnswer);
+    clearAnswer.value = "";
+    ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
+
+
+
+
+});
 var userAnswer = document.querySelector('.userAnswer').value;
-
-function callingAllFunctions(){
-  ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
-
-}
-function theOtherOnes (){
-  whosTurn();
-  compareAnswers(userAnswer, answer);
-  colorBall(itsYourTurn,compareAnswers());
-}
+//----------------------------------------------------------------------------
+// // event listener and function to store the name of the user's answer
+// var userAnswer = document.querySelector('.userAnswer');
+// var playersAnswer;
+// userAnswer.addEventListener('change', function(){
+//   playersAnswer = document.querySelector('.userAnswer').value;
+// });
+//console.log(userAnswer = document.querySelector('.userAnswer').innerHTML);
