@@ -1,38 +1,60 @@
 'use strict';
-var numberOfPlayers = document.querySelectorAll(".players2").value;
-console.log(numberOfPlayers)
-numberOfPlayers.addEventListener('change', addPlayer);
-
-function addPlayer(event){
-var player2input = document.querySelector('players2').value;
-
-if(player2input.checked == true){
-player2input.style.visibility = "visible";
-}
-}
-
-// add event listener to start game button
 var startGame = document.querySelector(".input");
 //console.log(startGame);
 startGame.addEventListener('click', storeInfo);
 
+var totalPlaying;
 var infoObj = {};
 function storeInfo(){
-  var playerName = document.querySelector('#userName').value;
-  console.log(playerName);
+    //this grabs and stores the player's names
+  var player1Name = document.querySelector('#player1').value;
+  console.log(player1Name);
+  var player2Name = document.querySelector('#player2').value;
+  console.log(player2Name);
+
+//loop through number of players radio button to determine how many players
+
+var totalPlayers = document.querySelectorAll(".numOfPlayers");
+console.log(totalPlayers);
+for(var ii = 0; ii < totalPlayers.length; ii++) {
+  console.log(typeof totalPlayers[ii].value);
+
+   if(totalPlayers[ii].checked === true) {
+       totalPlaying = totalPlayers[ii].value;
+       console.log(totalPlaying);
+
+   }
+  console.log(player1Name);
+  console.log(player2Name);
 
   var roundsToPlay = document.querySelectorAll(".rounds");
   console.log(roundsToPlay);
   for(var i = 0; i < roundsToPlay.length; i++) {
      if(roundsToPlay[i].checked == true) {
          var selectedNum = roundsToPlay[i].value;
-         //console.log(selectedNum);
+         console.log(selectedNum);
      }
-}infoObj.playerName = playerName;
+}
+infoObj.peoplePlaying = totalPlaying;
+infoObj.player1Name = player1Name;
+infoObj.player2Name = player2Name;
 infoObj.rounds = selectedNum;
 console.log(infoObj);
-localStorage.setItem('player', playerName);
+localStorage.setItem('player1', player1Name);
+localStorage.setItem('player2', player2Name);
+localStorage.setItem('numOfPlayers', totalPlaying);
 localStorage.setItem('rounds', selectedNum);
 
 }
-//-----------------------------------------------
+}
+
+var players2 = document.querySelector('#twoPlayers');
+//console.log(players2);
+players2.addEventListener('change', makePlayer2InputAppear);
+function makePlayer2InputAppear(){
+  var player2Input = document.querySelectorAll('#player2');
+  //console.log(player2Input);
+  for(var x=0; x<player2Input.length; x++){
+    player2Input[x].style.visibility ="visible";
+  }
+}

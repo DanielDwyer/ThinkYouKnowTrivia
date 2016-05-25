@@ -1,7 +1,7 @@
 
 .panel-default {
-    position: fixed;
-    bottom: 0;
+    /*position: fixed;
+    bottom: 0;*/
     text-align: center;
     margin-left: 20%;
 
@@ -157,6 +157,41 @@ i{
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
 }
-.player2 {
+/*.player2 {
+  visibility: hidden;
+}*/
+.appendQuestion {
+border: 1px solid black;
+}
+
+.appendAnswer {
+  border: 1px solid black;
+  }
+.scoreBalls {
+  border: 2px solid green;
+  height: 200px;
+}
+.begin {
+  padding: 20px;
+  margin-left: 40%
+}
+.question {
+  font-size: 30px;
+}
+.answerText {
+  margin:20px;
+  padding:10px;
+  width: 50%;
+}
+.hideMe {
+  visibility: hidden;
+}
+.hideMe2 {
+  visibility: hidden;
+}
+.rd1, .rd2, .rd3 {
+  visibility: hidden;
+}
+#player2 {
   visibility: hidden;
 }

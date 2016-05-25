@@ -1,58 +1,8 @@
-.well {
-  background-color: blue !important;
-  background: #77cf99;
-background: -moz-linear-gradient(left, #77cf99 0%, #77cf99 75%, #006b27 100%);
-background: -webkit-gradient(left top, right top, color-stop(0%, #77cf99), color-stop(75%, #77cf99), color-stop(100%, #006b27));
-background: -webkit-linear-gradient(left, #77cf99 0%, #77cf99 75%, #006b27 100%);
-background: -o-linear-gradient(left, #77cf99 0%, #77cf99 75%, #006b27 100%);
-background: -ms-linear-gradient(left, #77cf99 0%, #77cf99 75%, #006b27 100%);
-background: linear-gradient(to right, #77cf99 0%, #77cf99 75%, #006b27 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#77cf99', endColorstr='#006b27', GradientType=1 );
+.appendQuestion {
+border: 1px solid black;
 }
- label{
-   font-size: 20px;
-   text-shadow: 0 0 0.2em #8F7;
- }
-input{
-  font-size: 22px;
-}
-.input {
-  margin: 15px;
-  margin-left: 43%;
-  padding:20px;
-  background-color: green;
-  border-radius: 35%;
-  font-family: cursive;
-  font-size: 18px;
-  color: white;
-}
-.R{
-  color: red;
-}
-.O{
-  color: orange;
-}
-.Y{
-  color: yellow;
-}
-.G{
-  color: green;
-}
-.B{
-  color: blue;
-}
-.I{
-  color: indigo;
-}
-.V{
-  color: violet;
-}
-h3 {
-  text-shadow: 0 0 0.2em #8F7;
-}
-.thanks {
-  margin-top: 175px;
-}
-.rules {
-  margin-top: 30px;
+
+.appendAnswer {
+  border: 1px solid black;
+  }
 }
