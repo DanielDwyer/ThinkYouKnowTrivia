@@ -3,7 +3,8 @@
     /*position: fixed;
     bottom: 0;*/
     text-align: center;
-    margin-left: 20%;
+    /*margin-left: 20%;*/
+    padding-left: 20%;
 
 }
 .page-header {
@@ -205,4 +206,7 @@ border: 1px solid black;
 .questionBox {
   background-color: white;
   border: 2px solid black;
+}
+.hintZone {
+  margin-bottom: 20px;
 }

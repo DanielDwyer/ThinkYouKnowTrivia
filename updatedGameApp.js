@@ -17,6 +17,12 @@ console.log("Number of Rounds: " + numOfRounds);
 var turnNow = document.querySelector('.turn');
 turnNow.innerHTML = "It is " + player1 +"'s Turn";
 
+var player1SB = document.querySelector('.player1name');
+var player2SB = document.querySelector('.player2name');
+console.log(player1SB);
+player1SB.innerHTML = player1;
+player2SB.innerHTML = player2;
+
 // scoreBoard(numOfPlayers, numOfRounds);
 //to print out the scoreboard depending on how many players and how may rounds
 var totalQ = (numOfRounds*10);
@@ -44,6 +50,7 @@ var totalQ = (numOfRounds*10);
 }
 
 if(numOfPlayers === "2"){
+
   for(var j = 0; j < totalQ; j++){
     var p1scoreball = document.createElement('div');
     p1scoreball.style.border = "1px solid black";
@@ -106,10 +113,13 @@ function ajax(method, url, handler){
 ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
 var question;
 var answer;
+var hint;
 function putQOnScreen(err, data){
   if(!err){
     question = data[0].question ;
     answer = data[0].answer ;
+    hint = data[0].category['title'];
+    console.log(hint);
     console.log("Question: " + data[0].question);
     console.log("Answer: " + data[0].answer);
     var addQToThis = document.querySelector('.questionBox');
@@ -118,32 +128,8 @@ function putQOnScreen(err, data){
 
     whosTurn();
 
-    // var userAnswer = document.querySelector('.userAnswer');
-    // console.log("USER ANSWER: ", userAnswer);
-    // userAnswer = userAnswer.toLowerCase();
-    // answer = answer.toLowerCase();
-    // function compareAnswers(ans1, ans2){
-    //   console.log('ANSWER1: ', ans1);
-    //   console.log('ANSWER2: ', ans2);
-    //   answer = answer.toLowerCase();
-    //   playersAnswer = playersAnswer.toLowerCase();
-    //   if(answer == userAnswer){
-    //     console.log(answer);
-    //     console.log(userAnswer);
-    //     return true;
-    //   }else{
-    //     return false;
-    //   }
-    //
-    // }
-    // var clearAnswer = document.querySelector('.userAnswer');
-    // console.log(clearAnswer);
-    // clearAnswer.value = "";
-
-
         }
       }
-//------------------------------------------------------------------------------
 
 
 //-------------turn changer function
@@ -261,18 +247,21 @@ checkAnsBttn.addEventListener('click', function(event){
     var clearAnswer = document.querySelector('.userAnswer');
     //console.log(clearAnswer);
     clearAnswer.value = "";
+
+    var clearHint = document.querySelector('.hint');
+    console.log(clearHint);
+    clearHint.innerHTML = "Hint Please!";
     ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
 
-
-
+    var lastAnswer = document.querySelector('.lastAnswer');
+    console.log(lastAnswer);
+    lastAnswer.innerHTML = "The last answer was: " + answer;
 
 });
 var userAnswer = document.querySelector('.userAnswer').value;
-//----------------------------------------------------------------------------
-// // event listener and function to store the name of the user's answer
-// var userAnswer = document.querySelector('.userAnswer');
-// var playersAnswer;
-// userAnswer.addEventListener('change', function(){
-//   playersAnswer = document.querySelector('.userAnswer').value;
-// });
-//console.log(userAnswer = document.querySelector('.userAnswer').innerHTML);
+//---------------------------------
+//adding a hint if you click the hint button
+var hintButton = document.querySelector('.hint');
+hintButton.addEventListener('click', function(){
+  hintButton.innerHTML = hint;
+});
