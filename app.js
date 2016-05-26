@@ -1,5 +1,5 @@
 'use strict';
-var startGame = document.querySelector(".input");
+var startGame = document.querySelector("input");
 //console.log(startGame);
 startGame.addEventListener('click', storeInfo);
 
@@ -25,12 +25,12 @@ for(var ii = 0; ii < totalPlayers.length; ii++) {
    }
   //console.log(player1Name);
   //console.log(player2Name);
-
+  var selectedNum;//moved this to global scope because it's being called outside of its original function
   var roundsToPlay = document.querySelectorAll(".rounds");
   //console.log(roundsToPlay);
   for(var i = 0; i < roundsToPlay.length; i++) {
-     if(roundsToPlay[i].checked == true) {
-         var selectedNum = roundsToPlay[i].value;
+     if(roundsToPlay[i].checked === true) {
+         selectedNum = roundsToPlay[i].value;
          console.log(selectedNum);
      }
 }
