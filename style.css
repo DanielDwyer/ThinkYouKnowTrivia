@@ -192,3 +192,6 @@ a {
 .actualValue, .actualAirDate {
   border: 1px solid gray;
 }
+.cash1, .cash2 {
+  border: 2px green solid;
+}

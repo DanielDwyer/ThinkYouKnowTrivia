@@ -45,7 +45,7 @@ var totalQ = (numOfRounds*10);
       p1scoreball.style.textAlign = "center";
       var scoreballZoneP1 = document.querySelector('.player1ScoreBalls');
       //console.log(scoreballZoneP1);
-      scoreballZoneP1.style.height = (totalQ * 8)+"px";
+      scoreballZoneP1.style.height = (totalQ * 9)+"px";
       scoreballZoneP1.appendChild(p1scoreball);
 
     }
@@ -61,13 +61,14 @@ if(numOfPlayers === "2"){
     p1scoreball.style.float ="left";
     p1scoreball.style.borderRadius = "50%";
     p1scoreball.style.marginLeft = "10px";
+    p1scoreball.style.marginTop ="10px";
     p1scoreball.style.paddingTop =" 7px";
     p1scoreball.className = "p1Ball"+(j+1);
     p1scoreball.innerHTML = "P1";
     p1scoreball.style.textAlign = "center";
     var scoreballZoneP1 = document.querySelector('.player1ScoreBalls');
     //console.log(scoreballZoneP1);
-    scoreballZoneP1.style.height = (totalQ * 8)+"px";
+    scoreballZoneP1.style.height = (totalQ * 7)+"px";
     scoreballZoneP1.appendChild(p1scoreball);
   }
 
@@ -79,14 +80,14 @@ if(numOfPlayers === "2"){
   p2scoreball.style.float ="left";
   p2scoreball.style.borderRadius = "50%";
   p2scoreball.style.marginLeft = "10px";
-
+  p2scoreball.style.marginTop ="10px";
   p2scoreball.style.paddingTop =" 7px";
   p2scoreball.className = "p2Ball"+(k+1);
   p2scoreball.innerHTML = "P2";
   p2scoreball.style.textAlign = "center";
   var scoreballZoneP2 = document.querySelector('.player2ScoreBalls');
   //console.log(scoreballZoneP2);
-  scoreballZoneP2.style.height = (totalQ * 8)+"px";
+  scoreballZoneP2.style.height = (totalQ * 7)+"px";
   scoreballZoneP2.appendChild(p2scoreball);
   scoreballZoneP2.visibility = "visible";
 }
@@ -213,6 +214,8 @@ function whosTurn (){
 // userAnswer = userAnswer.toLowerCase();
 // answer = answer.toLowerCase();
 var cash = 0;
+var p1Cash =0;
+var p2Cash =0;
 function compareAnswers(user, correct){
   console.log('USER: ', user);
   console.log('CORRECT: ', correct);
@@ -222,19 +225,42 @@ function compareAnswers(user, correct){
   // qValue = Number(qValue);
   if(user == correct){
     console.log("RIGHT!");
-    cash = cash + qValue;
-
-    console.log("Current Cash: " +cash);
-    return true;
+    //cash = cash + qValue;
+    //console.log("Current Cash: " +cash);
+    //return true;
+      if(itsYourTurn === 1){
+        p1Cash = p1Cash + qValue;
+        var p1winnings = document.querySelector('.cash1');
+        p1winnings.innerHTML ="Player 1 Winnings: "+ p1Cash;
+      }else{
+        p2Cash = p2Cash + qValue;
+        var p2winnings = document.querySelector('.cash2');
+        p2winnings.innerHTML ="Player 2 Winnings: "+ p2Cash;
+      }
+      return true;
   }else{
     console.log("Wrong :(");
-    cash = (Number(cash) - qValue);
+    //cash = (Number(cash) - qValue);
     //console.log(typeof cash);
     //console.log(cash);
     console.log("Current Cash: " + cash);
+    //return false;
+      if(itsYourTurn === 1){
+      p1Cash = p1Cash - qValue;
+      var p1winnings = document.querySelector('.cash1');
+      p1winnings.innerHTML ="Player 1 Winnings: $"+ p1Cash;
+      }else{
+      p2Cash = p2Cash - qValue;
+      var p2winnings = document.querySelector('.cash2');
+      p2winnings.innerHTML ="Player 2 Winnings: $"+ p2Cash;
+      }
     return false;
   }
 
+  // var p1winnings = document.querySelector('.cash1');
+  // var p2winnings = document.querySelector('.cash2');
+  // p1winnings.innerHTML ="Player 1 Winnings: "+ p1Cash;
+  // p2winnings.innerHTML ="Player 2 Winnings: "+ p2Cash;
 }
 
 //add cash to scoreboard
