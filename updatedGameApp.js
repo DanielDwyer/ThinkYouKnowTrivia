@@ -122,14 +122,16 @@ var answer;
 var hint;
 var airDate;
 var qValue;
+var comparison = '';
 function putQOnScreen(err, data){
+  console.log('entering putQOnScreen');
   if(!err){
     question = data[0].question ;
     answer = data[0].answer ;
     console.log("This is it: " + answer);
-    answer = answer.replace(/(<i>)/g, "");
-    answer = answer.replace(/(<\/i>)/g, "");
-    answer = answer.replace(/(\/)/g, "");
+    //answer = answer.replace(/[<i>]/g, "");//this regex doesn't seem to work. replaced () with [], still not sure why it exists, because it breaks things when it does work
+    answer = answer.replace(/[<\/i>)]/g, "");//this seems reduntant with the one above, still not sure what you have against 'i' :P
+    answer = answer.replace(/(\/)/g, "");//ok, this makes some sense
     console.log("This is it: " + answer);
     hint = data[0].category['title'];
     airDate = data[0].airdate;
@@ -143,7 +145,8 @@ function putQOnScreen(err, data){
     var addQToThis = document.querySelector('.questionBox');
     //console.log(addQToThis);
     addQToThis.innerHTML = question;
-
+    comparison.concat(data[0].answer);
+    console.log('comparison str', comparison);
     var actualValue = document.querySelector('.actualValue');
     var actualAirDate = document.querySelector('.actualAirDate');
     actualValue.innerHTML = "This Question is a $" +qValue+" question!";
@@ -151,10 +154,13 @@ function putQOnScreen(err, data){
 
     whosTurn();
 
-        }
-      }
+    }
+}
 
-
+var hintButton = document.querySelector('.hint');
+hintButton.addEventListener('click', function(){
+  hintButton.innerHTML = hint;
+});
 //-------------turn changer function
 var counter = 0;
 var itsYourTurn;
@@ -174,7 +180,6 @@ function whosTurn (){
   }
   }
 
-
   if(numOfPlayers === "2"){
   if(counter <=20){
     currentQ.innerHTML = "Round 1 Question "+counter;
@@ -189,7 +194,6 @@ function whosTurn (){
   turnNow = document.querySelector('.turn');
   turnNow.innerHTML = "It is " + player1 +"'s Turn";
   itsYourTurn = 1;
-
 
   if(counter % 2 === 0 && numOfPlayers === "2"){
     //player 2's turn
@@ -211,22 +215,15 @@ function whosTurn (){
 
 
 // --------------------answer checker function
-// var userAnswer = document.querySelector('.userAnswer');
-// console.log("USER ANSWER: ", userAnswer);
-// userAnswer = userAnswer.toLowerCase();
-// answer = answer.toLowerCase();
 var cash = 0;
 var p1Cash =0;
 var p2Cash =0;
 var p1winnings;
 var p2winnings;
 function compareAnswers(user, correct){
-  console.log('USER: ', user);
-  console.log('CORRECT: ', correct);
-  correct = correct.toLowerCase();
+
+  //correct = correct.toLowerCase();
   user = user.toLowerCase();
-  // cash = Number(cash);
-  // qValue = Number(qValue);
   if(user === correct){
     console.log("RIGHT!");
     //cash = cash + qValue;
@@ -261,10 +258,6 @@ function compareAnswers(user, correct){
     return false;
   }
 
-  // var p1winnings = document.querySelector('.cash1');
-  // var p2winnings = document.querySelector('.cash2');
-  // p1winnings.innerHTML ="Player 1 Winnings: "+ p1Cash;
-  // p2winnings.innerHTML ="Player 2 Winnings: "+ p2Cash;
 }
 
 //add cash to scoreboard
@@ -314,7 +307,7 @@ checkAnsBttn.addEventListener('click', function(event){
 
     var userAnswer = document.querySelector('.userAnswer');
     console.log("USER ANSWER HERE",userAnswer.value);
-    console.log("CORRENT ANSWER: ", answer);
+    console.log("CORRENT ANSWER: ", qValue);
 
     var rightOrWrong = compareAnswers(userAnswer.value, answer);
     console.log("DID THE PLAYER GET THE ANSWER RIGHT? ", rightOrWrong);
@@ -337,54 +330,7 @@ checkAnsBttn.addEventListener('click', function(event){
 
 });
 
-// checkAnsBttn.addEventListener('keyup',function(event){
-//   if(event.Keycode == "13"){
-//
-//     event.preventDefault();
-//     // ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
-//     // // var rightOrWrong =compareAnswers();
-//
-// checkAnsBttn.addEventListener('keyup')
-//
-//     var userAnswer = document.querySelector('.userAnswer');
-//     console.log("USER ANSWER HERE",userAnswer.value);
-//     console.log("CORRENT ANSWER: ", answer);
-//
-//     var rightOrWrong = compareAnswers(userAnswer.value, answer);
-//     console.log("DID THE PLAYER GET THE ANSWER RIGHT? ", rightOrWrong);
-//
-//
-//     colorBall(itsYourTurn,rightOrWrong);
-//
-//     var clearAnswer = document.querySelector('.userAnswer');
-//     //console.log(clearAnswer);
-//     clearAnswer.value = "";
-//
-//     var clearHint = document.querySelector('.hint');
-//     console.log(clearHint);
-//     clearHint.innerHTML = "Hint Please!";
-//     ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
-//
-//     var lastAnswer = document.querySelector('.lastAnswer');
-//     console.log(lastAnswer);
-//     lastAnswer.innerHTML = "The last answer was: " + answer;
-//
-//   }
-// }))
 
-
-// var userAnswer = document.querySelector('.userAnswer').value;
-//---------------------------------
-//adding a hint if you click the hint button
-var hintButton = document.querySelector('.hint');
-hintButton.addEventListener('click', function(){
-  hintButton.innerHTML = hint;
-});
-
-// var actualValue = document.querySelector('.actualValue');
-// var airDate = document.querySelector('.actualAirDate');
-// actualValue.innerHTML = qValue;
-// airDate.innerHTML = airDate;
 
 //---------------------------------------------------------------------------
 //function to total money earned
