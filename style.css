@@ -173,7 +173,7 @@ a {
 .newText{
   font-family: 'Fugaz One', cursive;
 }
-.questionBox {
+.questionBox, .lastAnswer {
   font-family: 'ABeeZee', sans-serif;
 }
 .hint {
@@ -187,5 +187,8 @@ a {
     font-weight: bold;
 }
 .jService {
-  color: black;
+  color: black !important;
+}
+.actualValue, .actualAirDate {
+  border: 1px solid gray;
 }

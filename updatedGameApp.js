@@ -1,6 +1,7 @@
 'use strict';
 
 //to access the local storage
+
 var local = localStorage;
 console.log(local);
 var numOfPlayers = local.numOfPlayers;
@@ -38,12 +39,11 @@ var totalQ = (numOfRounds*10);
       p1scoreball.style.float ="left";
       p1scoreball.style.borderRadius = "50%";
       p1scoreball.style.marginLeft = "10px";
-      p1scoreball.style.marginTop = "20px";
       p1scoreball.style.paddingTop =" 7px";
       p1scoreball.className = "p1Ball"+(i+1);
       p1scoreball.innerHTML = "P1";
       p1scoreball.style.textAlign = "center";
-      var scoreballZoneP1 = document.querySelector('.player1name');
+      var scoreballZoneP1 = document.querySelector('.player1ScoreBalls');
       //console.log(scoreballZoneP1);
       scoreballZoneP1.style.height = (totalQ * 8)+"px";
       scoreballZoneP1.appendChild(p1scoreball);
@@ -61,7 +61,6 @@ if(numOfPlayers === "2"){
     p1scoreball.style.float ="left";
     p1scoreball.style.borderRadius = "50%";
     p1scoreball.style.marginLeft = "10px";
-    p1scoreball.style.marginTop = "20px";
     p1scoreball.style.paddingTop =" 7px";
     p1scoreball.className = "p1Ball"+(j+1);
     p1scoreball.innerHTML = "P1";
@@ -80,7 +79,7 @@ if(numOfPlayers === "2"){
   p2scoreball.style.float ="left";
   p2scoreball.style.borderRadius = "50%";
   p2scoreball.style.marginLeft = "10px";
-  p2scoreball.style.marginTop = "20px";
+
   p2scoreball.style.paddingTop =" 7px";
   p2scoreball.className = "p2Ball"+(k+1);
   p2scoreball.innerHTML = "P2";
@@ -124,8 +123,14 @@ function putQOnScreen(err, data){
   if(!err){
     question = data[0].question ;
     answer = data[0].answer ;
+    console.log("This is it: " + answer);
+    answer = answer.replace(/(<i>)/g, "");
+    answer = answer.replace(/(<\/i>)/g, "");
+    answer = answer.replace(/(\/)/g, "");
+    console.log("This is it: " + answer);
     hint = data[0].category['title'];
     airDate = data[0].airdate;
+    console.log(airDate);
     qValue = data[0].value;
     console.log("Airdate: " +airDate);
     console.log("Question Value: "+qValue);
@@ -135,6 +140,11 @@ function putQOnScreen(err, data){
     var addQToThis = document.querySelector('.questionBox');
     //console.log(addQToThis);
     addQToThis.innerHTML = question;
+
+    var actualValue = document.querySelector('.actualValue');
+    var actualAirDate = document.querySelector('.actualAirDate');
+    actualValue.innerHTML = "This Question is a $" +qValue+" question!";
+    actualAirDate.innerHTML = "This Question Aired in: "+airDate.substring(0, 4);;
 
     whosTurn();
 
@@ -178,8 +188,9 @@ function whosTurn (){
   itsYourTurn = 1;
 
 
-  if(counter % 2 === 0 && numOfPlayers === 2){
+  if(counter % 2 === 0 && numOfPlayers === "2"){
     //player 2's turn
+    console.log(counter);
     turnNow.innerHTML = "It is " + player2 +"'s Turn";
     itsYourTurn = 2;
   }else{
@@ -190,6 +201,8 @@ function whosTurn (){
   }
   if(counter >= (numOfRounds * numOfPlayers * 10)){
     //Do this because the game has reached it's total number of questions
+    var endGame = document.querySelector('questionBox');
+    endGame.innerHTML ="The Game is Over!"
   }
 }
 
@@ -199,37 +212,34 @@ function whosTurn (){
 // console.log("USER ANSWER: ", userAnswer);
 // userAnswer = userAnswer.toLowerCase();
 // answer = answer.toLowerCase();
+var cash = 0;
 function compareAnswers(user, correct){
   console.log('USER: ', user);
   console.log('CORRECT: ', correct);
   correct = correct.toLowerCase();
   user = user.toLowerCase();
+  // cash = Number(cash);
+  // qValue = Number(qValue);
   if(user == correct){
     console.log("RIGHT!");
+    cash = cash + qValue;
+
+    console.log("Current Cash: " +cash);
     return true;
   }else{
     console.log("Wrong :(");
+    cash = (Number(cash) - qValue);
+    //console.log(typeof cash);
+    //console.log(cash);
+    console.log("Current Cash: " + cash);
     return false;
   }
 
 }
 
-//  var userAnswer = document.querySelector('.userAnswer').value;
-//  userAnswer = userAnswer.toLowerCase();
-//  console.log(userAnswer);
-//  answer = answer.toLowerCase();
-//  console.log(answer);
-// // and var answer equals the officla answer
-// function compareAnswers(ans1, ans2){
-//   if(ans1 == ans2){
-//     console.log(ans1);
-//     console.log(ans2);
-//     return true;
-//   }else{
-//     return false;
-//   }
-//
-// }
+//add cash to scoreboard
+
+
 
 //-----------ball colorer function
 var p1Counter=0;
@@ -260,12 +270,15 @@ function colorBall (whosTurn, isAnswerCorrect){
 }
 
 //----------------------------------------------
+
+
 var checkAnsBttn = document.querySelector('.actualSubmitBtn');
 console.log("ANSWER BUTTON",checkAnsBttn);
 checkAnsBttn.addEventListener('click', function(event){
     event.preventDefault();
     // ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
     // // var rightOrWrong =compareAnswers();
+
 
     var userAnswer = document.querySelector('.userAnswer');
     console.log("USER ANSWER HERE",userAnswer.value);
@@ -291,6 +304,43 @@ checkAnsBttn.addEventListener('click', function(event){
     lastAnswer.innerHTML = "The last answer was: " + answer;
 
 });
+
+// checkAnsBttn.addEventListener('keyup',function(event){
+//   if(event.Keycode == "13"){
+//
+//     event.preventDefault();
+//     // ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
+//     // // var rightOrWrong =compareAnswers();
+//
+// checkAnsBttn.addEventListener('keyup')
+//
+//     var userAnswer = document.querySelector('.userAnswer');
+//     console.log("USER ANSWER HERE",userAnswer.value);
+//     console.log("CORRENT ANSWER: ", answer);
+//
+//     var rightOrWrong = compareAnswers(userAnswer.value, answer);
+//     console.log("DID THE PLAYER GET THE ANSWER RIGHT? ", rightOrWrong);
+//
+//
+//     colorBall(itsYourTurn,rightOrWrong);
+//
+//     var clearAnswer = document.querySelector('.userAnswer');
+//     //console.log(clearAnswer);
+//     clearAnswer.value = "";
+//
+//     var clearHint = document.querySelector('.hint');
+//     console.log(clearHint);
+//     clearHint.innerHTML = "Hint Please!";
+//     ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
+//
+//     var lastAnswer = document.querySelector('.lastAnswer');
+//     console.log(lastAnswer);
+//     lastAnswer.innerHTML = "The last answer was: " + answer;
+//
+//   }
+// }))
+
+
 var userAnswer = document.querySelector('.userAnswer').value;
 //---------------------------------
 //adding a hint if you click the hint button
@@ -298,3 +348,11 @@ var hintButton = document.querySelector('.hint');
 hintButton.addEventListener('click', function(){
   hintButton.innerHTML = hint;
 });
+
+// var actualValue = document.querySelector('.actualValue');
+// var airDate = document.querySelector('.actualAirDate');
+// actualValue.innerHTML = qValue;
+// airDate.innerHTML = airDate;
+
+//---------------------------------------------------------------------------
+//function to total money earned
