@@ -137,7 +137,30 @@ var counter = 0;
 var itsYourTurn;
 function whosTurn (){
   counter++;
+  console.log(counter);
+  var currentQ = document.querySelector('.current');
+  console.log(currentQ);
 
+  if(numOfPlayers === "1"){
+  if(counter <=10){
+    currentQ.innerHTML = "Round 1 Question "+counter;
+  }else if(counter > 10 && counter <= 20){
+    currentQ.innerHTML = "Round 2 Question "+(counter-10);
+  }else{
+    currentQ.innerHTML = "Round 3 Question "+(counter-20);
+  }
+  }
+
+
+  if(numOfPlayers === "2"){
+  if(counter <=20){
+    currentQ.innerHTML = "Round 1 Question "+counter;
+  }else if(counter > 20 && counter <= 40){
+    currentQ.innerHTML = "Round 2 Question "+(counter-20);
+  }else{
+    currentQ.innerHTML = "Round 3 Question "+(counter-40);
+  }
+}
 
   //player 1's turn
   turnNow = document.querySelector('.turn');
@@ -145,7 +168,7 @@ function whosTurn (){
   itsYourTurn = 1;
 
 
-  if(counter % 2 === 0){
+  if(counter % 2 === 0 && numOfPlayers === 2){
     //player 2's turn
     turnNow.innerHTML = "It is " + player2 +"'s Turn";
     itsYourTurn = 2;
