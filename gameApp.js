@@ -246,12 +246,13 @@ function addQuestion(event){
   if(!err){
       console.log(data[0].answer);
       console.log(data[0].question);
+    compare = data[0].answer;
+
     div1 = document.createElement('div');
     div2 = document.createElement('div');
     div1.innerHTML = data[0].question;
     div1.className = "questionText";
     div2.innerHTML = data[0].answer;
-
     div1.className= "question";
     div2.className= "answer";
     var answer =document.createElement('input');

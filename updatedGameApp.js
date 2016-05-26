@@ -94,19 +94,21 @@ if(numOfPlayers === "2"){
 }
 //------------------------------------------------------------------------------
 //ajax function so can be called later
-var playersAnswer;
-var rightOrWrong;
+// var playersAnswer;
+// var rightOrWrong;
 function ajax(method, url, handler){
   var req = new XMLHttpRequest();
     req.onreadystatechange = onStateChange;
       function onStateChange(){
-        if (req.readyState == 4){
-          if(req.status == '200'){
+        if (req.readyState === 4){
+          console.log('readyState', this.readyState);
+          if(req.status === 200){//status is always an int, so use deep equals
             //var res = JSON.parse(req.responseText);
             handler(null, JSON.parse(req.responseText));
             //console.log(req.responseText);
-          }else{
-            console.log("Here" + this.status, null);
+          }
+          else{
+            console.log("status", this.status);
           }
         }
       }
@@ -145,7 +147,7 @@ function putQOnScreen(err, data){
     var actualValue = document.querySelector('.actualValue');
     var actualAirDate = document.querySelector('.actualAirDate');
     actualValue.innerHTML = "This Question is a $" +qValue+" question!";
-    actualAirDate.innerHTML = "This Question Aired in: "+airDate.substring(0, 4);;
+    actualAirDate.innerHTML = "This Question Aired in: "+airDate.substring(0, 4);
 
     whosTurn();
 
@@ -203,7 +205,7 @@ function whosTurn (){
   if(counter >= (numOfRounds * numOfPlayers * 10)){
     //Do this because the game has reached it's total number of questions
     var endGame = document.querySelector('questionBox');
-    endGame.innerHTML ="The Game is Over!"
+    endGame.innerHTML ="The Game is Over!";
   }
 }
 
@@ -216,6 +218,8 @@ function whosTurn (){
 var cash = 0;
 var p1Cash =0;
 var p2Cash =0;
+var p1winnings;
+var p2winnings;
 function compareAnswers(user, correct){
   console.log('USER: ', user);
   console.log('CORRECT: ', correct);
@@ -223,18 +227,18 @@ function compareAnswers(user, correct){
   user = user.toLowerCase();
   // cash = Number(cash);
   // qValue = Number(qValue);
-  if(user == correct){
+  if(user === correct){
     console.log("RIGHT!");
     //cash = cash + qValue;
     //console.log("Current Cash: " +cash);
     //return true;
       if(itsYourTurn === 1){
         p1Cash = p1Cash + qValue;
-        var p1winnings = document.querySelector('.cash1');
+        p1winnings = document.querySelector('.cash1');
         p1winnings.innerHTML ="Player 1 Winnings: "+ p1Cash;
       }else{
         p2Cash = p2Cash + qValue;
-        var p2winnings = document.querySelector('.cash2');
+        p2winnings = document.querySelector('.cash2');
         p2winnings.innerHTML ="Player 2 Winnings: "+ p2Cash;
       }
       return true;
@@ -247,11 +251,11 @@ function compareAnswers(user, correct){
     //return false;
       if(itsYourTurn === 1){
       p1Cash = p1Cash - qValue;
-      var p1winnings = document.querySelector('.cash1');
+      p1winnings = document.querySelector('.cash1');
       p1winnings.innerHTML ="Player 1 Winnings: $"+ p1Cash;
       }else{
       p2Cash = p2Cash - qValue;
-      var p2winnings = document.querySelector('.cash2');
+      p2winnings = document.querySelector('.cash2');
       p2winnings.innerHTML ="Player 2 Winnings: $"+ p2Cash;
       }
     return false;
@@ -270,26 +274,28 @@ function compareAnswers(user, correct){
 //-----------ball colorer function
 var p1Counter=0;
 var p2Counter=0;
+var ballForThisQ;
+var allForThisQ;
 function colorBall (whosTurn, isAnswerCorrect){
 
-  if(whosTurn == 1){
+  if(whosTurn === 1){
     p1Counter++;
     if(isAnswerCorrect === true){
-      var ballForThisQ = document.querySelector('.p1Ball'+p1Counter);
+      ballForThisQ = document.querySelector('.p1Ball'+p1Counter);
       console.log(ballForThisQ);
       ballForThisQ.style.backgroundColor = "green";
     }else{
-      var ballForThisQ = document.querySelector('.p1Ball'+p1Counter);
+      ballForThisQ = document.querySelector('.p1Ball'+p1Counter);
       ballForThisQ.style.backgroundColor = "red";
     }
   }else{
     p2Counter++;
     if(isAnswerCorrect === true){
-      var ballForThisQ = document.querySelector('.p2Ball'+p2Counter);
+      allForThisQ = document.querySelector('.p2Ball'+p2Counter);
       console.log(ballForThisQ);
       ballForThisQ.style.backgroundColor = "green";
     }else{
-      var ballForThisQ = document.querySelector('.p2Ball'+p2Counter);
+      ballForThisQ = document.querySelector('.p2Ball'+p2Counter);
       ballForThisQ.style.backgroundColor = "red";
     }
   }
@@ -367,7 +373,7 @@ checkAnsBttn.addEventListener('click', function(event){
 // }))
 
 
-var userAnswer = document.querySelector('.userAnswer').value;
+// var userAnswer = document.querySelector('.userAnswer').value;
 //---------------------------------
 //adding a hint if you click the hint button
 var hintButton = document.querySelector('.hint');
