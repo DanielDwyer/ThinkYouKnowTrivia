@@ -21,6 +21,7 @@ var player1SB = document.querySelector('.player1name');
 var player2SB = document.querySelector('.player2name');
 console.log(player1SB);
 player1SB.innerHTML = player1;
+// player1SB.stlye.clear ="both";
 player2SB.innerHTML = player2;
 
 // scoreBoard(numOfPlayers, numOfRounds);
@@ -38,6 +39,7 @@ var totalQ = (numOfRounds*10);
       p1scoreball.style.borderRadius = "50%";
       p1scoreball.style.marginLeft = "10px";
       p1scoreball.style.marginTop = "20px";
+      p1scoreball.style.paddingTop =" 7px";
       p1scoreball.className = "p1Ball"+(i+1);
       p1scoreball.innerHTML = "P1";
       p1scoreball.style.textAlign = "center";
@@ -60,6 +62,7 @@ if(numOfPlayers === "2"){
     p1scoreball.style.borderRadius = "50%";
     p1scoreball.style.marginLeft = "10px";
     p1scoreball.style.marginTop = "20px";
+    p1scoreball.style.paddingTop =" 7px";
     p1scoreball.className = "p1Ball"+(j+1);
     p1scoreball.innerHTML = "P1";
     p1scoreball.style.textAlign = "center";
@@ -78,6 +81,7 @@ if(numOfPlayers === "2"){
   p2scoreball.style.borderRadius = "50%";
   p2scoreball.style.marginLeft = "10px";
   p2scoreball.style.marginTop = "20px";
+  p2scoreball.style.paddingTop =" 7px";
   p2scoreball.className = "p2Ball"+(k+1);
   p2scoreball.innerHTML = "P2";
   p2scoreball.style.textAlign = "center";
@@ -114,11 +118,17 @@ ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
 var question;
 var answer;
 var hint;
+var airDate;
+var qValue;
 function putQOnScreen(err, data){
   if(!err){
     question = data[0].question ;
     answer = data[0].answer ;
     hint = data[0].category['title'];
+    airDate = data[0].airdate;
+    qValue = data[0].value;
+    console.log("Airdate: " +airDate);
+    console.log("Question Value: "+qValue);
     console.log(hint);
     console.log("Question: " + data[0].question);
     console.log("Answer: " + data[0].answer);

@@ -1,39 +1,38 @@
-.page-header {
-  /*background-color: #505217;*/
 
-
-}
-
-.panel-default {
+/*.panel-default {
     text-align: center;
     padding-left: 20%;
-}
+}*/
 .title{
   text-shadow: 2px 2px gray;
   font-family: cursive;
   text-align: center;
+  font-family: 'Trade Winds', cursive;
+  color: #FFD372;
 }
 h1.title {
   font-size: 60px;
-  color: #FFD372;
-  font-family: 'Trade Winds', cursive;
+  /*color: #FFD372;
+  font-family: 'Trade Winds', cursive;*/
 }
 h3.title {
   font-size: 38px;
-  font-family: 'Trade Winds', cursive;
-  color: #FFD372;
+  /*font-family: 'Trade Winds', cursive;
+  color: #FFD372;*/
 }
 
- ul li{
-  border: 1px solid black;
+ul li{
+  /*buttons on the bottom of the page*/
+  border: 2px solid black;
   border-radius: 10px;
   margin-right: 40px;
   margin-left: 40px;
+  box-shadow: 5px 5px 5px #FFD372;
+  font-family: 'Karla', sans-serif;
 }
 .btn1 {
   background-color: #505217 !important;
   color: #FFD372 !important;
-
 }
 .btn2 {
   background-color: #505217 !important;
@@ -47,24 +46,16 @@ h3.title {
   background-color: #505217 !important;
   color: #FFD372 !important;
 }
-
 .score {
   text-align: center;
 }
 label{
   font-size: 20px;
 }
-.input {
-  margin-top: 15px;
-  padding: 25px;
-}
-.roundAndQ {
-  border: 1px solid black;
-  text-align: center;
-}
 
-h3 {
-  text-shadow: 0 0 0.2em #FFD372;
+.roundAndQ {
+  border: 1px solid #505217;
+  text-align: center;
 }
 .thanks {
   margin-top: 175px;
@@ -75,6 +66,7 @@ h3 {
 
 .well {
   background-color: #FFF1AF !important;
+  box-shadow: 3px 3px 3px gray !important;
 }
  label{
    font-size: 20px;
@@ -86,13 +78,16 @@ input{
 .input {
   margin: 15px;
   margin-left: 43%;
-  padding:20px;
   background-color: #505217;
   border-radius: 35%;
   font-family: cursive;
   font-size: 18px;
   color: white;
-  border: 2px solid #290418;
+  border: 2px solid #FFD372;
+  margin-top: 15px;
+  padding: 25px;
+  box-shadow: 5px 5px 5px #290418;
+
 }
 
 .appendQuestion {
@@ -132,6 +127,7 @@ border: 1px solid black;
 }
 .player1ScoreBalls {
   border: 1px solid black;
+
 }
 .player2ScoreBalls {
   border: 1px solid black;
@@ -142,6 +138,7 @@ border: 1px solid black;
   border: 2px solid black;
   padding: 25px;
   border-radius: 15%;
+  font-size: 30px !important;
 }
 .hintZone {
   margin-bottom: 20px;
@@ -169,4 +166,26 @@ a {
   padding: 10px;
   border-radius: 15%;
 
+}
+.playe1Name {
+
+}
+.newText{
+  font-family: 'Fugaz One', cursive;
+}
+.questionBox {
+  font-family: 'ABeeZee', sans-serif;
+}
+.hint {
+  background-color: #556B2F;
+  color: white;
+  font-weight: bold;
+}
+.actualSubmitBtn {
+  	background-color: #2f556b;
+    color: white;
+    font-weight: bold;
+}
+.jService {
+  color: black;
 }
