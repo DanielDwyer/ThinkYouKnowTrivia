@@ -1,11 +1,11 @@
 # ThinkYouKnowTrivia
 
-Quarter 1 Project
+Quarter 1 Project, Galvanize, Fort Collins, Colorado
 
-This game of trivia encompasses all I have learned over the previous 4 weeks.
+I chose to constuct a triva game, Think You Know Trivia, for my quarter one project. The purpose of the quarter one project is to tie together the skills we have learned over the preceeding four weeks. 
+
+To design and struture my application I use HTML and CSS. Bootstrap provided additional design options. JavaScript provides all the interaction. From calling the jService API to generate questions, answers, and hints, to creating and manipulating elements as the game progresses were all done using JavaScript.
 
 Think your good at trivia? Give my game a try!
 
-All my questions were's taken from an API known as jService.
-
-Feedback welcome
+Feedback is very welcome.
