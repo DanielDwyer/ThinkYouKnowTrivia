@@ -11,4 +11,8 @@ Think your good at trivia? Give my game a try!
 Feedback is very welcome.
 
 
-Here is a link to my project writeup. https://docs.google.com/document/d/1A_Kh3CDm1E6SPrCj_TxFLoLLa0Y4yj5ZhfkaRdLJBEk/edit?usp=sharing
+Here is a link to my project writeup: https://docs.google.com/document/d/1A_Kh3CDm1E6SPrCj_TxFLoLLa0Y4yj5ZhfkaRdLJBEk/edit?usp=sharing
+
+Informational Video about Think You Know Trivia:
+https://www.youtube.com/watch?v=C2FOEovGZNM
+
