@@ -27,6 +27,7 @@ ul li{
   border-radius: 10px;
   margin-right: 40px;
   margin-left: 40px;
+  margin-bottom: 40px !important;
   box-shadow: 5px 5px 5px #FFD372;
   font-family: 'Karla', sans-serif;
 }
@@ -194,4 +195,16 @@ a {
 }
 .cash1, .cash2 {
   border: 2px green solid;
+}
+.cash2 {
+  visibility: hidden;
+}
+.black {
+  color: black !important;
+}
+.red {
+  color: #db3236 !important;
+}
+.green {
+  color: #028482 !important;
 }

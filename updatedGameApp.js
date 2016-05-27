@@ -40,19 +40,21 @@ var totalQ = (numOfRounds*10);
       p1scoreball.style.borderRadius = "50%";
       p1scoreball.style.marginLeft = "10px";
       p1scoreball.style.paddingTop =" 7px";
+      p1scoreball.style.marginTop =" 12px";
       p1scoreball.className = "p1Ball"+(i+1);
       p1scoreball.innerHTML = "P1";
       p1scoreball.style.textAlign = "center";
       var scoreballZoneP1 = document.querySelector('.player1ScoreBalls');
       //console.log(scoreballZoneP1);
-      scoreballZoneP1.style.height = (totalQ * 9)+"px";
+      scoreballZoneP1.style.height = (totalQ * 7)+"px";
       scoreballZoneP1.appendChild(p1scoreball);
 
     }
 }
 
 if(numOfPlayers === "2"){
-
+  var turnMeOn = document.querySelector('.cash2');
+  turnMeOn.style.visibility ="visible";
   for(var j = 0; j < totalQ; j++){
     var p1scoreball = document.createElement('div');
     p1scoreball.style.border = "1px solid black";
@@ -68,6 +70,10 @@ if(numOfPlayers === "2"){
     p1scoreball.style.textAlign = "center";
     var scoreballZoneP1 = document.querySelector('.player1ScoreBalls');
     //console.log(scoreballZoneP1);
+    if(numOfRounds === 1){
+      scoreballZoneP2.style.height = (totalQ * 15)+"px";
+      p1scoreball.style.marginTop ="0";
+    }
     scoreballZoneP1.style.height = (totalQ * 7)+"px";
     scoreballZoneP1.appendChild(p1scoreball);
   }
@@ -87,6 +93,10 @@ if(numOfPlayers === "2"){
   p2scoreball.style.textAlign = "center";
   var scoreballZoneP2 = document.querySelector('.player2ScoreBalls');
   //console.log(scoreballZoneP2);
+  if(numOfRounds === 1){
+    scoreballZoneP2.style.height = (totalQ * 15)+"px";
+    p2scoreball.style.marginTop ="0";
+  }
   scoreballZoneP2.style.height = (totalQ * 7)+"px";
   scoreballZoneP2.appendChild(p2scoreball);
   scoreballZoneP2.visibility = "visible";
@@ -128,11 +138,26 @@ function putQOnScreen(err, data){
     answer = answer.replace(/(<i>)/g, "");
     answer = answer.replace(/(<\/i>)/g, "");
     answer = answer.replace(/(\/)/g, "");
+      if(answer[0] === "A" && answer[1] === " "){
+        answer = answer.substring(2);
+      }
+      if(answer[0] === "a" && answer[1] === " "){
+        answer = answer.substring(2);
+      }
+      if(answer[0] === "T" && answer[1] === "h" && answer[2] === "e" && answer[3] === " "){
+        answer = answer.substring(4);
+      }
+      if(answer[0] === "t" && answer[1] === "h" && answer[2] === "e" && answer[3] === " "){
+        answer = answer.substring(4);
+      }
     console.log("This is it: " + answer);
     hint = data[0].category['title'];
     airDate = data[0].airdate;
     console.log(airDate);
     qValue = data[0].value;
+      if(qValue === null){
+        qValue = 1000;
+      }
     console.log("Airdate: " +airDate);
     console.log("Question Value: "+qValue);
     console.log(hint);
@@ -151,8 +176,6 @@ function putQOnScreen(err, data){
 
         }
       }
-
-
 //-------------turn changer function
 var counter = 0;
 var itsYourTurn;
@@ -161,6 +184,18 @@ function whosTurn (){
   console.log(counter);
   var currentQ = document.querySelector('.current');
   console.log(currentQ);
+
+  var totalNumOfQ = ((numOfPlayers)*(numOfRounds)*10);
+  console.log(totalNumOfQ);
+
+  if(counter > ((numOfPlayers)*(numOfRounds)*10)){
+    var endIt = document.querySelector('.actualSubmitBtn');
+    endIt.removeEventListener("click", allInOne);
+    var endGame = document.querySelector('.questionBox');
+    endGame.innerHTML = "The game is over! Good Game!";
+
+
+  }
 
   if(numOfPlayers === "1"){
   if(counter <=10){
@@ -221,8 +256,7 @@ function compareAnswers(user, correct){
   console.log('CORRECT: ', correct);
   correct = correct.toLowerCase();
   user = user.toLowerCase();
-  // cash = Number(cash);
-  // qValue = Number(qValue);
+
   if(user == correct){
     console.log("RIGHT!");
     //cash = cash + qValue;
@@ -300,7 +334,9 @@ function colorBall (whosTurn, isAnswerCorrect){
 
 var checkAnsBttn = document.querySelector('.actualSubmitBtn');
 console.log("ANSWER BUTTON",checkAnsBttn);
-checkAnsBttn.addEventListener('click', function(event){
+checkAnsBttn.addEventListener('click', allInOne);
+
+function allInOne (event){
     event.preventDefault();
     // ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
     // // var rightOrWrong =compareAnswers();
@@ -329,42 +365,41 @@ checkAnsBttn.addEventListener('click', function(event){
     console.log(lastAnswer);
     lastAnswer.innerHTML = "The last answer was: " + answer;
 
-});
+};
 
-// checkAnsBttn.addEventListener('keyup',function(event){
-//   if(event.Keycode == "13"){
-//
-//     event.preventDefault();
-//     // ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
-//     // // var rightOrWrong =compareAnswers();
-//
-// checkAnsBttn.addEventListener('keyup')
-//
-//     var userAnswer = document.querySelector('.userAnswer');
-//     console.log("USER ANSWER HERE",userAnswer.value);
-//     console.log("CORRENT ANSWER: ", answer);
-//
-//     var rightOrWrong = compareAnswers(userAnswer.value, answer);
-//     console.log("DID THE PLAYER GET THE ANSWER RIGHT? ", rightOrWrong);
-//
-//
-//     colorBall(itsYourTurn,rightOrWrong);
-//
-//     var clearAnswer = document.querySelector('.userAnswer');
-//     //console.log(clearAnswer);
-//     clearAnswer.value = "";
-//
-//     var clearHint = document.querySelector('.hint');
-//     console.log(clearHint);
-//     clearHint.innerHTML = "Hint Please!";
-//     ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
-//
-//     var lastAnswer = document.querySelector('.lastAnswer');
-//     console.log(lastAnswer);
-//     lastAnswer.innerHTML = "The last answer was: " + answer;
-//
-//   }
-// }))
+window.addEventListener("keypress", enterKey, false);
+function enterKey (event){
+  if(event.keyCode == 13 || event.whic == 13){
+    event.preventDefault();
+    // ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
+    // // var rightOrWrong =compareAnswers();
+
+
+    var userAnswer = document.querySelector('.userAnswer');
+    console.log("USER ANSWER HERE",userAnswer.value);
+    console.log("CORRENT ANSWER: ", answer);
+
+    var rightOrWrong = compareAnswers(userAnswer.value, answer);
+    console.log("DID THE PLAYER GET THE ANSWER RIGHT? ", rightOrWrong);
+
+
+    colorBall(itsYourTurn,rightOrWrong);
+
+    var clearAnswer = document.querySelector('.userAnswer');
+    //console.log(clearAnswer);
+    clearAnswer.value = "";
+
+    var clearHint = document.querySelector('.hint');
+    console.log(clearHint);
+    clearHint.innerHTML = "Hint Please!";
+    ajax('GET', 'http://jservice.io/api/random', putQOnScreen);
+
+    var lastAnswer = document.querySelector('.lastAnswer');
+    console.log(lastAnswer);
+    lastAnswer.innerHTML = "The last answer was: " + answer;
+}
+};
+
 
 
 var userAnswer = document.querySelector('.userAnswer').value;
@@ -381,4 +416,5 @@ hintButton.addEventListener('click', function(){
 // airDate.innerHTML = airDate;
 
 //---------------------------------------------------------------------------
-//function to total money earned
+//adding a keyup event to
+//var hereYeeHereYee = document.querySelector('.')
