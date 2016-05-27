@@ -9,3 +9,6 @@ To design and struture my application I use HTML and CSS. Bootstrap provided add
 Think your good at trivia? Give my game a try!
 
 Feedback is very welcome.
+
+
+Here is a link to my project writeup. https://docs.google.com/document/d/1A_Kh3CDm1E6SPrCj_TxFLoLLa0Y4yj5ZhfkaRdLJBEk/edit?usp=sharing
